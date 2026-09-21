@@ -1,6 +1,6 @@
 # inventory-intent-engine
 
-Production-grade proof of concept for translating Spanish and English inventory messages into validated, provider-agnostic domain intents.
+Project for translating Spanish and English inventory messages into validated, provider-agnostic domain intents.
 
 > The LLM interprets the requested action. It does not own business rules or mutate inventory.
 
@@ -10,6 +10,7 @@ Input:
 
 ```text
 Se compraron 10 kilos de papa y se quebraron 5 huevos.
+We received 8 kg of rice and spilled 2 liters of milk.
 ```
 
 Output:
