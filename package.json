@@ -1,0 +1,47 @@
+{
+  "name": "inventory-intent-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Provider-agnostic bilingual inventory intent parser using structured LLM outputs.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "tsx src/presentation/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:evaluation": "RUN_LIVE_EVALS=true vitest run tests/evaluation"
+  },
+  "keywords": [
+    "structured-outputs",
+    "llm",
+    "typescript",
+    "inventory",
+    "natural-language-processing"
+  ],
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@11.19.0",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "openai": "^7.15.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.20.2",
+    "@vitest/coverage-v8": "^5.0.1",
+    "eslint": "^10.10.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.6",
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "^5.0.1"
+  }
+}
