@@ -8,4 +8,9 @@ export { InventoryIntentOutputSchema } from './domain/inventory-intent/inventory
 export type {
   InventoryAction,
   InventoryIntent,
+  PriceValue,
+  PurchasePrice,
 } from './domain/inventory-intent/inventory-intent.types.js';
+
+export type { InventoryInterpretationContext } from './application/inventory-interpretation-context.js';
+export { MOCK_INVENTORY_CONTEXT } from './config/mock-inventory-context.js';

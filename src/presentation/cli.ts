@@ -1,5 +1,6 @@
 import { OpenAIStructuredOutputProvider } from '../ai/providers/openai/openai-structured-output.provider.js';
 import { ParseInventoryIntentUseCase } from '../application/parse-inventory-intent.use-case.js';
+import { MOCK_INVENTORY_CONTEXT } from '../config/mock-inventory-context.js';
 import { loadEnvironment } from '../config/environment.js';
 
 async function main(): Promise<void> {
@@ -17,7 +18,7 @@ async function main(): Promise<void> {
     environment.OPENAI_MODEL,
   );
   const useCase = new ParseInventoryIntentUseCase(provider);
-  const result = await useCase.execute(input);
+  const result = await useCase.execute(input, MOCK_INVENTORY_CONTEXT);
 
   console.log(JSON.stringify(result, null, 2));
 }

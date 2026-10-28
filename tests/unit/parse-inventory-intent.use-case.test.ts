@@ -15,13 +15,25 @@ describe('ParseInventoryIntentUseCase', () => {
           quantity: 10,
           unit: 'kg',
           reason: 'purchase',
+          purchasePrice: {
+            status: 'pending',
+            amount: null,
+            currency: 'COP',
+            basis: null,
+            unit: null,
+            pendingReason: 'user_unavailable',
+            referencePrice: null,
+          },
         },
       ],
       clarification: null,
     });
     const useCase = new ParseInventoryIntentUseCase(provider);
 
-    const result = await useCase.execute('We bought 10 kg of potatoes.');
+    const result = await useCase.execute('We bought 10 kg of potatoes; price unavailable.', {
+      currency: 'COP',
+      referencePrices: [],
+    });
 
     expect(result.inputLanguage).toBe('en');
     expect(result.actions[0]?.operation).toBe('increase');
@@ -30,6 +42,8 @@ describe('ParseInventoryIntentUseCase', () => {
   it('rejects empty input before calling a provider', async () => {
     const useCase = new ParseInventoryIntentUseCase(new FakeStructuredOutputProvider({}));
 
-    await expect(useCase.execute('   ')).rejects.toThrow('Input must not be empty.');
+    await expect(useCase.execute('   ', { currency: 'COP', referencePrices: [] })).rejects.toThrow(
+      'Input must not be empty.',
+    );
   });
 });
