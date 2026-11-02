@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { OpenAIStructuredOutputProvider } from '../../src/ai/providers/openai/openai-structured-output.provider.js';
 import { ParseInventoryIntentUseCase } from '../../src/application/parse-inventory-intent.use-case.js';
+import { MOCK_INVENTORY_CONTEXT } from '../../src/config/mock-inventory-context.js';
 import { EVALUATION_CASES } from '../fixtures/evaluation-cases.js';
 
 const apiKey = process.env.OPENAI_API_KEY;
@@ -19,11 +20,18 @@ describe.skipIf(!runLiveEvaluations)('OpenAI inventory intent evaluation', () =>
       const useCase = new ParseInventoryIntentUseCase(
         new OpenAIStructuredOutputProvider(apiKey, model),
       );
-      const result = await useCase.execute(evaluationCase.input);
+      const result = await useCase.execute(evaluationCase.input, MOCK_INVENTORY_CONTEXT);
 
       expect(result.inputLanguage).toBe(evaluationCase.expectedLanguage);
       expect(result.status).toBe(evaluationCase.expectedStatus);
       expect(result.actions).toHaveLength(evaluationCase.expectedActionCount);
+      if (evaluationCase.expectedActions)
+        expect(result.actions).toMatchObject(evaluationCase.expectedActions);
+      if (evaluationCase.expectedMissingFields) {
+        expect(result.clarification?.missingFields).toEqual(
+          expect.arrayContaining(evaluationCase.expectedMissingFields),
+        );
+      }
     });
   }
 });
